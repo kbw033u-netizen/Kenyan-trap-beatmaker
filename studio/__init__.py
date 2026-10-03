@@ -1,0 +1,1 @@
+"""Beatmaking studio application."""
