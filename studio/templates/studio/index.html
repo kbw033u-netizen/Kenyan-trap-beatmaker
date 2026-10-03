@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'studio/styles.css' %}">
+  <script src="{% static 'studio/tempo.js' %}" defer></script>
   <script src="{% static 'studio/app.js' %}" defer></script>
 </head>
 <body>
@@ -52,6 +53,8 @@
           <div class="swing-control"><label for="swing-slider">SWING <span id="swing-value">12%</span></label><input id="swing-slider" type="range" min="0" max="60" value="12" aria-label="Adjust swing"></div>
           <div class="transport-divider actions-divider"></div>
           <button id="randomize-button" class="text-button randomize-button" type="button" title="Generate a new groove"><span class="dice-icon">⤨</span><span>Randomize</span></button>
+          <input id="audio-file-input" type="file" accept="audio/*,video/mp4,.mp4,.m4a" hidden>
+          <button id="detect-tempo-button" class="text-button detect-tempo-button" type="button" title="Detect tempo from an audio or MP4 file"><span class="detect-icon">♪</span><span id="detect-tempo-label">Detect BPM</span></button>
           <button id="export-button" class="text-button export-button" type="button" title="Render and download a four-bar WAV"><span class="export-icon">↓</span><span id="export-label">Export WAV</span></button>
           <button id="clear-button" class="text-button clear-button" type="button" title="Clear all steps"><span>Clear</span></button>
         </section>

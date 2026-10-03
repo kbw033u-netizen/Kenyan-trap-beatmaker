@@ -16,6 +16,8 @@ class PatternApiTests(TestCase):
         response = self.client.get(reverse("studio"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Find your")
+        self.assertContains(response, 'id="detect-tempo-button"')
+        self.assertContains(response, "studio/tempo.js")
         self.assertIn("csrftoken", response.cookies)
 
     def test_patterns_can_be_saved_and_listed(self):

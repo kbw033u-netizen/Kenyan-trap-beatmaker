@@ -84,6 +84,7 @@ input[type="range"] { height: 3px; margin: 0; accent-color: var(--lime); cursor:
 .text-button:hover { color: var(--lime); }
 .text-button:disabled { cursor: wait; opacity: .65; }
 .dice-icon { color: var(--lime); font-size: 18px; }
+.detect-icon { color: var(--cyan); font: 16px var(--mono); }
 .export-icon { color: var(--lime); font: 17px var(--mono); }
 .sequencer-panel { margin-top: 16px; padding: 19px 20px 14px; border: 1px solid var(--line); background: var(--surface); }
 .sequencer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 17px; }
@@ -154,7 +155,8 @@ input[type="range"] { height: 3px; margin: 0; accent-color: var(--lime); cursor:
 @media (min-width: 1500px) { .studio-content { padding-top: 55px; } }
 @media (max-width: 1050px) {
   .studio-shell { grid-template-columns: 190px minmax(0, 1fr); }
-  .transport { gap: 10px; padding-inline: 11px; }
+  .transport { flex-wrap: wrap; gap: 10px; padding-inline: 11px; }
+  .tempo-slider-wrap { flex: 1 1 75px; }
   .bottom-row { grid-template-columns: minmax(250px, .8fr) minmax(340px, 1.2fr); }
   .sequencer-grid { grid-template-columns: 78px repeat(16, minmax(0, 1fr)); gap: 7px 4px; }
   .grid-footer { margin-left: 82px; }

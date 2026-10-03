@@ -317,6 +317,37 @@ async function exportWave() {
   }
 }
 
+async function detectTempoFromFile(file) {
+  const message = document.querySelector("#save-message");
+  const button = document.querySelector("#detect-tempo-button");
+  const label = document.querySelector("#detect-tempo-label");
+  if (file.size > 100 * 1024 * 1024) {
+    message.textContent = "Choose a file smaller than 100 MB.";
+    return;
+  }
+
+  button.disabled = true;
+  label.textContent = "Analyzing…";
+  message.textContent = `Analyzing ${file.name} on this device…`;
+  try {
+    audioContext ??= new window.AudioContext();
+    const audio = await audioContext.decodeAudioData(await file.arrayBuffer());
+    const tempo = window.JuaTempo.estimateTempo(audio);
+    if (!tempo) {
+      message.textContent = "No steady beat found. Try a longer audio clip.";
+      return;
+    }
+    setTempo(tempo);
+    message.textContent = `Detected ${tempo} BPM from ${file.name}.`;
+  } catch {
+    message.textContent = "Could not decode this file. MP4 needs browser-supported audio.";
+  } finally {
+    button.disabled = false;
+    label.textContent = "Detect BPM";
+    document.querySelector("#audio-file-input").value = "";
+  }
+}
+
 function randomizePattern() {
   const chances = { kick: 0.3, snare: 0.12, hat: 0.76, log: 0.23, shaker: 0.32 };
   TRACKS.forEach(({ id }) => {
@@ -407,6 +438,11 @@ playButton.addEventListener("click", () => startPlayback().catch(() => {
 }));
 document.querySelector("#stop-button").addEventListener("click", stopPlayback);
 document.querySelector("#randomize-button").addEventListener("click", randomizePattern);
+const audioFileInput = document.querySelector("#audio-file-input");
+document.querySelector("#detect-tempo-button").addEventListener("click", () => audioFileInput.click());
+audioFileInput.addEventListener("change", () => {
+  if (audioFileInput.files[0]) detectTempoFromFile(audioFileInput.files[0]);
+});
 document.querySelector("#export-button").addEventListener("click", exportWave);
 document.querySelector("#clear-button").addEventListener("click", clearPattern);
 document.querySelector("#save-form").addEventListener("submit", async (event) => {
